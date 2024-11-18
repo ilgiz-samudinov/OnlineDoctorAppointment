@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Queue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2f;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #ffffff;
+        }
+
+        h1 {
+            text-align: center;
+            color: #6c63ff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #2b2b3c;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #6c63ff;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #444;
+        }
+
+        tr:hover {
+            background-color: #555;
+        }
+
+        td {
+            border-bottom: 1px solid #444;
+        }
+
+        select {
+            padding: 8px;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #444;
+            border-radius: 4px;
+            font-size: 1em;
+            width: 100%;
+            max-width: 150px;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #6c63ff;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 0.9em;
+            margin-right: 5px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-edit {
+            background-color: #6c63ff;
+        }
+
+        .btn-edit:hover {
+            background-color: #5a54e0;
+        }
+
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Queue List</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Client</th>
+            <th>Doctor</th>
+            <th>Appointment</th>
+            <th>Created date</th>
+            <th>Updated date</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="queue : ${queues}">
+            <td th:text="${queue.id}"></td>
+            <td th:text="${queue.client.lastName} + ' ' + ${queue.client.firstName}"></td>
+            <td th:text="${queue.doctor.lastName} + ' ' + ${queue.doctor.firstName}"></td>
+            <td th:text="${queue.appointment.id}"></td>
+            <td th:text="${queue.createdAt}"></td>
+            <td th:text="${queue.updatedAt}"></td>
+            <td>
+                <form th:action="@{/queue/update}" method="post">
+                    <input type="hidden" name="id" th:value="${queue.id}">
+                    <select name="newStatus" th:value="${queue.status}" onchange="this.form.submit()">
+                        <option th:each="status : ${T(org.example.oma.model.QueueStatus).values()}"
+                                th:value="${status}" th:text="${status}" th:selected="${status == queue.status}">
+                        </option>
+                    </select>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

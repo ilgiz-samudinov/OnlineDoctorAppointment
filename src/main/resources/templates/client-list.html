@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Client - List</title>
+    <style>
+        /* Основной стиль */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2f;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+
+        /* Контейнер */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            background-color: #2b2b3c;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        h1 {
+            color: #6c63ff;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* Таблица */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: #e0e0e0;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+
+        th {
+            background-color: #6c63ff;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        tr:nth-child(even) {
+            background-color: #34344a;
+        }
+
+        tr:hover {
+            background-color: #404058;
+        }
+
+        td {
+            font-size: 0.95em;
+            color: #c0c0c0;
+        }
+
+        /* Контейнер для кнопок действий */
+        .actions-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        /* Кнопки */
+        .btn {
+            width: 70px; /* Фиксированная ширина для одинакового размера */
+            padding: 8px 0;
+            text-decoration: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 0.9em;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-edit {
+            background-color: #6c63ff;
+        }
+
+        .btn-edit:hover {
+            background-color: #5a54e0;
+            transform: scale(1.05);
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+        }
+
+        .btn-delete:hover {
+            background-color: #e53935;
+            transform: scale(1.05);
+        }
+
+        form {
+            display: inline;
+        }
+
+        /* Responsive table */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+
+            tr {
+                margin-bottom: 15px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                border-radius: 5px;
+            }
+
+            th {
+                background-color: transparent;
+                color: #6c63ff;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            td {
+                display: flex;
+                justify-content: space-between;
+                border: none;
+                padding: 10px 15px;
+            }
+
+            td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #a0a0a0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Client List</h1>
+
+    <div th:if="${successMessage}" class="alert alert-success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.id}" data-label="ID"></td>
+            <td th:text="${client.lastName}" data-label="Last Name"></td>
+            <td th:text="${client.firstName}" data-label="First Name"></td>
+            <td th:text="${client.middleName}" data-label="Middle Name"></td>
+            <td th:text="${client.phone}" data-label="Phone"></td>
+            <td>
+                <div class="actions-container">
+                    <a th:href="@{/client/edit/{id}(id=${client.id})}" class="btn btn-edit">Edit</a>
+                    <form th:action="@{/client/delete/{id}(id=${client.id})}" method="post">
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </div>
+
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

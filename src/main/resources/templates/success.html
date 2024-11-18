@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Талон создан успешно</title>
+    <style>
+        /* Основные стили для темного фона */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2f;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .confirmation-container {
+            background-color: #2b2b3c;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 8px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        h1 {
+            color: #6c63ff;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            color: #b3b3b3;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .details p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .details strong {
+            color: #cccccc;
+        }
+
+        .details span {
+            color: #999999;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 12px 24px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #6c63ff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-home:hover {
+            background-color: #5a54e0;
+        }
+    </style>
+</head>
+<body>
+<div class="confirmation-container">
+    <h1>Талон создан успешно!</h1>
+    <p class="success-message">Ваше назначение было успешно сохранено.</p>
+    <div class="details">
+        <p><strong>Имя пациента:</strong> <span th:text="${clientName}">Имя Пациента</span></p>
+        <p><strong>Дата:</strong> <span th:text="${appointmentDate}">12 ноября 2024</span></p>
+        <p><strong>Время:</strong> <span th:text="${appointmentTime}">14:30</span></p>
+        <p><strong>Врач:</strong> <span th:text="${doctorName}">Доктор Иванов</span></p>
+        <p><strong>Специальность:</strong> <span th:text="${doctorSpecialty}">Терапевт</span></p>
+    </div>
+    <a href="/" class="btn-home">На главную</a>
+</div>
+</body>
+</html>

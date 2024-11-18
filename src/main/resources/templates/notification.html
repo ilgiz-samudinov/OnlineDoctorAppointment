@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Notification Page</h1>
+
+    <!-- Проверяем наличие сообщения -->
+    <div th:if="${message}" class="alert" th:class="'alert-' + ${messageType}">
+        <p th:text="${message}"></p>
+    </div>
+
+    <form action="/create" method="post">
+        <div class="form-group">
+            <label for="item">Item Name</label>
+            <input type="text" id="item" name="item" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Item</button>
+    </form>
+</div>
+</body>
+</html>

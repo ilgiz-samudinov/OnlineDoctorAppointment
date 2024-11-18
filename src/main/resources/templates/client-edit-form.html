@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Client</title>
+    <style>
+        /* Основной стиль */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2f;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #e0e0e0;
+        }
+
+        /* Контейнер для формы */
+        .container {
+            background-color: #2b2b3c;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        /* Заголовок */
+        h1 {
+            text-align: center;
+            color: #6c63ff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Форма */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Метки */
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #a0a0a0;
+        }
+
+        /* Поля ввода */
+        input[type="text"] {
+            padding: 10px;
+            background-color: #3a3a4d;
+            border: 1px solid #555;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+
+        /* Фокус для полей ввода */
+        input[type="text"]:focus {
+            border-color: #6c63ff;
+            outline: none;
+        }
+
+        /* Кнопка отправки */
+        input[type="submit"] {
+            background-color: #6c63ff;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        /* Эффект наведения на кнопку */
+        input[type="submit"]:hover {
+            background-color: #5a54e0;
+            transform: scale(1.05);
+        }
+
+        /* Поля только для чтения */
+        input[readonly] {
+            background-color: #3a3a4d;
+            color: #a0a0a0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Редактировать клиента</h1>
+
+    <form th:object="${client}" th:action="@{/client/edit/{id}(id=${client.id})}" method="post">
+        <label for="id">ID</label>
+        <input type="text" th:field="*{id}" id="id" readonly/>
+
+        <label for="lastName">Фамилия</label>
+        <input type="text" th:field="*{lastName}" id="lastName" required/>
+
+        <label for="firstName">Имя</label>
+        <input type="text" th:field="*{firstName}" id="firstName" required/>
+
+        <label for="middleName">Отчество</label>
+        <input type="text" th:field="*{middleName}" id="middleName"/>
+
+        <label for="phone">Номер телефона</label>
+        <input type="text" th:field="*{phone}" id="phone" required/>
+
+        <input type="submit" value="Сохранить изменения"/>
+    </form>
+</div>
+</body>
+</html>

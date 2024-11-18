@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Главная страница</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1e1e2f;
+      color: #ffffff;
+    }
+    header {
+      background-color: #27293d;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .container {
+      margin: 20px auto;
+      width: 80%;
+      text-align: center;
+    }
+    .button {
+      display: inline-block;
+      margin: 20px;
+      padding: 15px 30px;
+      font-size: 16px;
+      color: #ffffff;
+      background-color: #3a3b5a;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    .button:hover {
+      background-color: #4a4c6f;
+    }
+    .steps {
+      margin-top: 20px;
+      text-align: left;
+      line-height: 1.6;
+      font-size: 18px;
+    }
+    footer {
+      background-color: #27293d;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<header>Запись на прием</header>
+<div class="container">
+  <p>Чтобы записаться на прием, нажмите на кнопку ниже и следуйте инструкциям:</p>
+  <a href="/appointment/check" class="button">Записаться на прием</a>
+  <div class="steps">
+    <h2>Как записаться на прием?</h2>
+    <ol>
+      <li>Введите номер телефона, чтобы найти клиента. Если клиент не зарегистрирован, система предложит создать нового клиента.</li>
+      <li>Выберите врача из списка доступных специалистов.</li>
+      <li>Укажите удобную дату и время для приема.</li>
+      <li>Подтвердите запись. После успешного завершения вы увидите страницу с деталями вашего визита.</li>
+    </ol>
+  </div>
+</div>
+<footer>© 2024 Все права защищены</footer>
+</body>
+</html>
