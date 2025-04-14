@@ -1,33 +1,116 @@
-HELP.md
+# --------------------------
+# Общие Java файлы
+# --------------------------
+*.class
+*.log
+*.ctxt
+*.war
+*.ear
+*.db
+*.DS_Store
+
+# --------------------------
+# Maven
+# --------------------------
 target/
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Maven Wrapper
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
 
-### IntelliJ IDEA ###
-.idea
+# --------------------------
+# Gradle (если вдруг используется)
+# --------------------------
+.gradle
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+.gradle/
+build/
+gradle-app.setting
+gradlew
+gradlew.bat
+
+# --------------------------
+# IntelliJ IDEA
+# --------------------------
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# --------------------------
+# Eclipse / STS
+# --------------------------
+.classpath
+.project
+.settings/
+.apt_generated/
+.factorypath
+.springBeans
+.sts4-cache/
 
-### VS Code ###
+# --------------------------
+# VS Code
+# --------------------------
 .vscode/
+
+# --------------------------
+# Logs
+# --------------------------
+*.log
+logs/
+*.out
+
+# --------------------------
+# ОС и прочее
+# --------------------------
+Thumbs.db
+.DS_Store
+ehthumbs.db
+Desktop.ini
+
+# --------------------------
+# Docker
+# --------------------------
+**/docker-compose.override.yml
+**/.env
+**/.docker/
+
+# --------------------------
+# Тесты и отчёты
+# --------------------------
+/test-output/
+/coverage/
+/jacoco.exec
+/site/
+/surefire-reports/
+/failsafe-reports/
+/.istanbul/
+
+# --------------------------
+# Локальные конфиги
+# --------------------------
+application-local.yml
+application-local.properties
+.env.local
+.env.*
+.envrc
+
+# --------------------------
+# Помощь и документация
+# --------------------------
+HELP.md
+README.local.md

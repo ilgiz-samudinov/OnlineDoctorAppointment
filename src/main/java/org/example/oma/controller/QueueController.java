@@ -28,6 +28,7 @@ public class QueueController {
         model.addAttribute("queues", queues);
         return "queue-list";
     }
+
     @PostMapping("/update")
     public String updateStatus(@RequestParam("id") Long id, @RequestParam("newStatus") QueueStatus newStatus) {
         queueService.updateStatus(id, newStatus);
