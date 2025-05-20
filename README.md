@@ -1,36 +1,37 @@
 ````markdown
 # Online Doctor Appointment
+
 ## Описание проекта
-**Online Doctor Appointment** — веб-приложение для управления онлайн-записью пациентов к врачам. Обеспечивает функциональность бронирования, просмотра расписания, управления данными врачей и пациентов.
+**Online Doctor Appointment** — веб-приложение для управления онлайн-записью пациентов к врачам. Предоставляет возможности:
 
-## Особенности
-
-- **Просмотр расписания врачей**: фильтрация по специализации и доступным датам
-- **Запись и отмена приёма**: подтверждение записи через веб-интерфейс
-- **Управление профилями**: CRUD-операции для врачей и пациентов
-- **Административная панель**: мониторинг записей
+- Просматривать расписание врачей с фильтрацией по специализации и доступным датам
+- Записывать и отменять приём через веб-интерфейс
+- Управлять профилями врачей и пациентов (CRUD)
+- Административно контролировать записи и очереди приёмов
+- Обеспечивать безопасность через Spring Security
+- Логировать действия с помощью SLF4J и Logback
 
 ## Стек технологий
 
-| Компонент         | Технология               |
-|-------------------|--------------------------|
-| Язык программирования | Java 21                |
-| Фреймворк         | Spring Boot 3           |
-| Шаблонизатор      | Thymeleaf               |
-| Вёрстка           | HTML5, CSS3,          |
-| База данных       | PostgreSQL              |
-| ORM               | Spring Data JPA         |
-| Безопасность      | Spring Security         |
-| Сборка проекта    | Maven                   |
+| Компонент             | Технология               |
+|-----------------------|--------------------------|
+| Язык программирования | Java 21                  |
+| Фреймворк             | Spring Boot 3            |
+| Шаблонизатор          | Thymeleaf                |
+| Вёрстка               | HTML5, CSS3              |
+| База данных           | PostgreSQL               |
+| ORM                   | Spring Data JPA          |
+| Безопасность          | Spring Security          |
+| Сборка проекта        | Maven                    |
 
 ## Архитектура
 
-Приложение построено по классической многослойной архитектуре:
-
-1. **Controller** — REST и MVC контроллеры для обработки HTTP-запросов
-2. **Service** — бизнес-логика приложения
-3. **Repository** — интерфейсы Spring Data JPA для работы с БД
+Классическая многослойная архитектура:
+1. **Controller** — MVC-контроллеры для UI и REST-контроллеры для API
+2. **Service** — бизнес-логика
+3. **Repository** — интерфейсы Spring Data JPA
 4. **Model** — сущности и DTO
+5. **Configuration** — настройка Spring Boot и компонентов
 
 ## Структура проекта
 
@@ -63,40 +64,39 @@ src/main/java/org/example/oma/
 
 ## Установка и запуск
 
-1. Клонировать репозиторий:
+1. Установить JDK 21 и Maven.
+2. Клонировать репозиторий:
 
    ```bash
    git clone https://github.com/ilgiz-samudinov/OnlineDoctorAppointment.git
    cd OnlineDoctorAppointment
    ```
-2. Настроить базу данных PostgreSQL:
+3. Создать базу данных PostgreSQL:
 
-    * Создать базу данных:
+   ```sql
+   CREATE DATABASE online_doctor;
+   ```
+4. В `src/main/resources/application.properties` указать параметры подключения:
 
-      ```sql
-      CREATE DATABASE online_doctor;
-      ```
-    * В файле `src/main/resources/application.yml` указать параметры подключения:
+   ```properties
+   spring.datasource.url=jdbc:postgresql://localhost:5432/online_doctor
+   spring.datasource.username=<DB_USERNAME>
+   spring.datasource.password=<DB_PASSWORD>
+   spring.jpa.hibernate.ddl-auto=update  # используйте 'validate' в продакшене
+   spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+   ```
+5. Запустить приложение:
 
-      ```yaml
-      spring:
-        datasource:
-          url: jdbc:postgresql://localhost:5432/online_doctor
-          username: <DB_USERNAME>
-          password: <DB_PASSWORD>
-        jpa:
-          hibernate:
-            ddl-auto: update  # use 'validate' in production
-          properties:
-            hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-      ```
-3. Сборка и запуск приложения:
+   ```bash
+   mvn spring-boot:run
+   ```
+
+   Или собрать и запустить jar-файл:
 
    ```bash
    mvn clean package
-   java -jar target/OnlineDoctorAppointment-0.0.1-SNAPSHOT.jar
+   java -jar target/OMA-0.0.1-SNAPSHOT.jar
    ```
-4. Открыть в браузере: [http://localhost:8080](http://localhost:8080)
 
 ## Конфигурационные параметры
 
@@ -105,7 +105,7 @@ src/main/java/org/example/oma/
 | `server.port`                   | Порт сервера                | 8080         |
 | `spring.jpa.hibernate.ddl-auto` | Стратегия создания схемы БД | update       |
 
-Дополнительные параметры можно задать в `application.yml`.
+Дополнительные настройки можно добавить в `application.properties`.
 
 ## API и маршруты
 
@@ -113,36 +113,37 @@ src/main/java/org/example/oma/
 
 #### Запись на приём
 
-* `GET  /appointment/` — главная страница приложения (index)
+* `GET  /appointment/` — главная страница
 * `GET  /appointment/check` — форма поиска клиента по телефону
-* `GET  /appointment/search-client?phone={phone}` — поиск клиента, редирект на регистрацию или отображение данных клиента
-* `GET  /appointment/select-client` — выбор врача из списка
-* `GET  /appointment/search-doctor?keyword={keyword}` — поиск врачей по ключевому слову или отображение всех при отсутствии фильтра
-* `POST /appointment/select-doctor` — выбор врача (передаётся `doctorId`), отображение доступных временных слотов
-* `POST /appointment/select-date` — выбор даты и времени приёма (параметры `appointmentDate`, `appointmentTime`), перенаправление на сохранение записи
-* `POST /appointment/save` — сохранение записи пациента к врачу, вывод подтверждения с данными клиента, врача, даты и времени
-* `GET  /appointment/all` — вывод списка всех записей (для администратора)
+* `GET  /appointment/search-client?phone={phone}` — поиск клиента
+* `GET  /appointment/select-client` — выбор врача
+* `GET  /appointment/search-doctor?keyword={keyword}` — поиск врачей
+* `POST /appointment/select-doctor` — выбор врача, отображение слотов
+* `POST /appointment/select-date` — выбор даты/времени
+* `POST /appointment/save` — сохранение приёма
+* `GET  /appointment/all` — список всех приёмов
 
-#### Клиенты
+### Клиенты
 
-* `GET  /client/create` — форма создания нового клиента
-* `POST /client/create` — сохранение нового клиента, редирект на выбор врача
-* `GET  /client/all` — вывод списка всех клиентов
-* `GET  /client/edit/{id}` — форма редактирования клиента по идентификатору
-* `POST /client/edit/{id}` — обновление данных клиента
-* `POST /client/delete/{id}` — удаление клиента по идентификатору
+* `GET  /client/create` — форма создания клиента
+* `POST /client/create` — сохранение клиента
+* `GET  /client/all` — список клиентов
+* `GET  /client/edit/{id}` — форма редактирования
+* `POST /client/edit/{id}` — обновление клиента
+* `POST /client/delete/{id}` — удаление клиента
 
-#### Врачи
+### Врачи
 
-* `GET  /doctor/all` — список всех врачей
-* `GET  /doctor/create` — форма создания нового врача
-* `POST /doctor/create` — сохранение нового врача
-* `GET  /doctor/edit/{id}` — форма редактирования врача
-* `POST /doctor/edit/{id}` — обновление данных врача
+* `GET  /doctor/all` — список врачей
+* `GET  /doctor/create` — форма создания врача
+* `POST /doctor/create` — сохранение врача
+* `GET  /doctor/edit/{id}` — форма редактирования
+* `POST /doctor/edit/{id}` — обновление врача
 * `POST /doctor/delete/{id}` — удаление врача
-* `GET  /doctor/search?keyword={keyword}` — поиск врачей по ключевому слову
+* `GET  /doctor/search?keyword={keyword}` — поиск врачей
 
-#### Очередь приёмов
+### Очередь приёмов
 
-* `GET  /queue/all` — список всех очередей приёма
-* `POST /queue/update` — обновление статуса очереди (параметры `id`, `newStatus`)
+* `GET  /queue/all` — список очередей приёмов
+* `POST /queue/update` — обновление статуса очереди
+
