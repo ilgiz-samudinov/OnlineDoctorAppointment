@@ -50,6 +50,7 @@ gradlew.bat
 *.iws
 *.iml
 *.ipr
+.idea/*
 
 # --------------------------
 # Eclipse / STS
@@ -93,12 +94,12 @@ Desktop.ini
 # Тесты и отчёты
 # --------------------------
 /test-output/
-/coverage/
-/jacoco.exec
+coverage/
+jacoco.exec
 /site/
-/surefire-reports/
-/failsafe-reports/
-/.istanbul/
+surefire-reports/
+failsafe-reports/
+.istanbul/
 
 # --------------------------
 # Локальные конфиги
